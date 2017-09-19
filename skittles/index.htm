@@ -1,0 +1,198 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="skittlesstyle.css">
+	<title>Skittles</title>
+
+
+<script>
+/* JAVASCRIPT STARTS HERE  */
+
+var currentScore = 0;
+
+var buttonList = [];
+
+function buttonObj(name, score){
+
+	this.name = name;
+	this.score = score;
+	this.buttonState = 0;
+
+}
+
+var fiftyLObj = new buttonObj ("fiftyL", 50);
+var onehundredObj = new buttonObj ("onehundred", 100);
+var fiftyRObj = new buttonObj ("fiftyR", 50);
+var tenTLObj = new buttonObj ("tenTL", 10);
+var tenTRObj = new buttonObj ("tenTR", 10);
+var tenCObj = new buttonObj ("tenC", 10);
+var tenBLObj = new buttonObj ("tenBL", 10);
+var tenBRObj = new buttonObj ("tenBR", 10);
+var fiveTLObj = new buttonObj ("fiveTL", 5);
+var fiveTRObj = new buttonObj ("fiveTR", 5);
+var fiveCObj = new buttonObj ("fiveC", 5);
+var fiveBLObj = new buttonObj ("fiveBL", 5);
+var fiveBRObj = new buttonObj ("fiveBR", 5);
+var negtenLObj = new buttonObj ("negtenL", -10);
+var negtenRObj = new buttonObj ("negtenR", -10);
+
+var buttonList = [fiftyLObj,onehundredObj,fiftyRObj,tenTLObj,tenTRObj,tenCObj,tenBLObj,tenBRObj,fiveTLObj,fiveTRObj,fiveCObj,fiveBLObj,fiveBRObj,negtenLObj,negtenRObj];
+
+function playerObj (place, roundPlace){
+
+	this.total = 0;
+	this.place = place;
+	this.round = "";
+	this.roundPlace = roundPlace;
+	this.addit = function(){
+
+		this.total = this.total + currentScore;
+		document.getElementById(this.place).innerHTML = this.total;
+		this.round = this.round + "*";
+		document.getElementById(this.roundPlace).innerHTML = this.round;
+		currentScore = 0;
+		updateScore();
+		boardReset();
+	
+	}
+
+}
+
+var player1 = new playerObj("player1ss","p1round");
+var player2 = new playerObj("player2ss","p2round");
+var player3 = new playerObj("player3ss","p3round");
+var player4 = new playerObj("player4ss","p4round");
+var player5 = new playerObj("player5ss","p5round");
+var player6 = new playerObj("player6ss","p6round");
+var player7 = new playerObj("player7ss","p7round");
+var player8 = new playerObj("player8ss","p8round");
+
+
+//player1.place = "player1scorespan";
+
+
+function updateScore(){
+
+	document.getElementById("currentScoreID").innerHTML = currentScore;
+}
+
+function buttonPush(buttonObj){
+	if (buttonObj.buttonState == 0)
+	{
+		buttonObj.buttonState = 1;
+		currentScore = currentScore + buttonObj.score;
+		document.getElementById(buttonObj.name).style.backgroundColor = "grey";
+
+	}
+	else if (buttonObj.buttonState == 1)
+	{
+		buttonObj.buttonState = 0;
+		currentScore = currentScore - buttonObj.score;
+		document.getElementById(buttonObj.name).style.backgroundColor = "lightgreen";
+
+	}
+	updateScore();
+}
+
+function showBoard(){
+	var b = document.getElementById('scoreboard');
+	if (b.style.display === 'none'){
+		b.style.display = 'block';
+	} else {
+		b.style.display = 'none';
+	}
+}
+
+function boardReset(){
+
+	var i = 0;
+	while (i < 15){
+		buttonList[i].buttonState = 0;
+		document.getElementById(buttonList[i].name).style.backgroundColor = "lightgreen";
+		i++;
+	}	
+
+}
+
+/* function addScore1(){
+
+	player1.total = player1.total + currentScore;
+	document.getElementById("player1scorespan").innerHTML = player1.total;
+	currentScore = 0;
+	updateScore();
+	boardReset();
+
+} */
+
+
+$(document).ready(function() {
+
+  });
+
+
+/* JAVASCRIPT ENDS HERE  */
+</script>
+
+</head>
+<body>
+<div><span><button id="boardonoff" onClick="showBoard()">Board</button> <!-- <button id="newplayer" onClick="addPlayer()">Add Player</button><input type="text" id="newplayerbox"> -->
+</span>
+</div>
+<div id="scoreboard">
+<div>
+	<button id="fiftyL" onClick="buttonPush(fiftyLObj)" type="button" class="button">50</button>
+	<button id="onehundred" onClick="buttonPush(onehundredObj)" type="button" class="button">100</button>
+	<button id="fiftyR" onClick="buttonPush(fiftyRObj)" type="button" class="button">50</button></div>
+<div>
+	<button id="tenTL" onClick="buttonPush(tenTLObj)" type="button" class="button">10</button>
+	<button type="button" class="nobutton" disabled>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+	<button id="tenTR" onClick="buttonPush(tenTRObj)" type="button" class="button">10</button>
+</div>
+<div>
+	<button type="button" class="nobutton" disabled>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+	<button id="tenC" onClick="buttonPush(tenCObj)" type="button" class="button">10</button>
+	<button type="button" class="nobutton" disabled>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+</div>
+<div>
+	<button id="tenBL" onClick="buttonPush(tenBLObj)" type="button" class="button">10</button>
+	<button type="button" class="nobutton" disabled>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+	<button id="tenBR" onClick="buttonPush(tenBRObj)" type="button" class="button">10</button>
+</div>
+<div>
+	<button id="fiveTL" onClick="buttonPush(fiveTLObj)" type="button" class="button">5</button>
+	<button type="button" class="nobutton" disabled>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+	<button id="fiveTR" onClick="buttonPush(fiveTRObj)" type="button" class="button">5</button>
+</div>
+<div>
+	<button type="button" class="nobutton" disabled>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+	<button id="fiveC" onClick="buttonPush(fiveCObj)" type="button" class="button">5</button>
+	<button type="button" class="nobutton" disabled>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+</div>
+<div>
+	<button id="fiveBL" onClick="buttonPush(fiveBLObj)" type="button" class="button">5</button>
+	<button type="button" class="nobutton" disabled>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+	<button id="fiveBR" onClick="buttonPush(fiveBRObj)" type="button" class="button">5</button>
+</div>
+<div>
+	<button id="negtenL" onClick="buttonPush(negtenLObj)" type="button" class="negbutton">-10</button>
+	<button type="button" class="nobutton" disabled>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+	<button id="negtenR" onClick="buttonPush(negtenRObj)" type="button" class="negbutton">-10</button>
+</div>
+</div>
+<div>
+	Current Score is: <span id="currentScoreID"></span>
+</div>
+
+<div><input type="text" id="player1"><span id="p1round"></span><span>   </span><button onClick="player1.addit()">+</button><span>   </span><span id="player1ss"> </span></div>
+<div><input type="text" id="player2"><span id="p2round"></span><span>   </span><button onClick="player2.addit()">+</button><span>   </span><span id="player2ss"> </span></div>
+<div><input type="text" id="player3"><span id="p3round"></span><span>   </span><button onClick="player3.addit()">+</button><span>   </span><span id="player3ss"> </span></div>
+<div><input type="text" id="player4"><span id="p4round"></span><span>   </span><button onClick="player4.addit()">+</button><span>   </span><span id="player4ss"> </span></div>
+<div><input type="text" id="player5"><span id="p5round"></span><span>   </span><button onClick="player5.addit()">+</button><span>   </span><span id="player5ss"> </span></div>
+<div><input type="text" id="player6"><span id="p6round"></span><span>   </span><button onClick="player6.addit()">+</button><span>   </span><span id="player6ss"> </span></div>
+<div><input type="text" id="player7"><span id="p7round"></span><span>   </span><button onClick="player7.addit()">+</button><span>   </span><span id="player7ss"> </span></div>
+<div><input type="text" id="player8"><span id="p8round"></span><span>   </span><button onClick="player8.addit()">+</button><span>   </span><span id="player8ss"> </span></div>
+
+</body>
+</html>
